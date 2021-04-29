@@ -7,12 +7,18 @@ import  javax.persistence.GeneratedValue ;
 import  javax.persistence.GenerationType ;
 import  javax.persistence.Id ;
 import  javax.persistence.Table ;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.apache.logging.log4j.message.AsynchronouslyFormattable;
+
+import javassist.SerialVersionUID;
 
 @Entity
 @Table(name = "medico")
 public class medicoDTO implements Serializable{
+	
+	private static final long SerialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY )
@@ -27,6 +33,45 @@ public class medicoDTO implements Serializable{
 	
 	@Column(name="ativo")
 	private String ativo;
+	
+	@Column(name="telefone1")
+	private String telefone1;
+	
+	@Column(name="telefone2")
+	private String telefone2;
+	
+	@Column(name = "email")
+	@NotBlank(message = "Não pode ser em branco")
+	@Email(message =  "Validar o email")
+    private String email;
+    
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone1() {
+		return telefone1;
+	}
+
+	public void setTelefone1(String telefone1) {
+		this.telefone1 = telefone1;
+	}
+
+	public String getTelefone2() {
+		return telefone2;
+	}
+
+	public void setTelefone2(String telefone2) {
+		this.telefone2 = telefone2;
+	}
+
+	public static long getSerialversionuid() {
+		return SerialVersionUID;
+	}
 
 	public int getIdmedico() {
 		return idmedico;
@@ -68,6 +113,8 @@ public class medicoDTO implements Serializable{
 		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
 		result = prime * result + idmedico;
 		result = prime * result + ((nomeCompleto == null) ? 0 : nomeCompleto.hashCode());
+		result = prime * result + ((telefone1 == null) ? 0 : telefone1.hashCode());
+		result = prime * result + ((telefone2 == null) ? 0 : telefone2.hashCode());
 		return result;
 	}
 
@@ -93,6 +140,16 @@ public class medicoDTO implements Serializable{
 			if (other.nomeCompleto != null)
 				return false;
 		} else if (!nomeCompleto.equals(other.nomeCompleto))
+			return false;
+		if (telefone1 == null) {
+			if (other.telefone1 != null)
+				return false;
+		} else if (!telefone1.equals(other.telefone1))
+			return false;
+		if (telefone2 == null) {
+			if (other.telefone2 != null)
+				return false;
+		} else if (!telefone2.equals(other.telefone2))
 			return false;
 		return true;
 	}
