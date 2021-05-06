@@ -23,13 +23,7 @@ public class PrestadorDTO {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY )
 	private int idprestador;
-	
-	
-	/*
-	 * @Column(name="idlogin") private int idlogin;
-	 */
-	 
-	
+		
 	@Column(name="nome_comp")
 	private String nome_comp;
 	
@@ -69,12 +63,6 @@ public class PrestadorDTO {
 	public void setIdprestador(int idprestador) {
 		this.idprestador = idprestador;
 	}
-
-	/*
-	 * public int getIdlogin() { return idlogin; }
-	 * 
-	 * public void setIdlogin(int idlogin) { this.idlogin = idlogin; }
-	 */
 
 	public LoginDTO getLogin() {
 		return login;

@@ -1,9 +1,14 @@
 package com.clinicamedica.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,18 +49,8 @@ public class LoginDTO implements Serializable {
 	
 	@Column(name="ultimologin")
 	private  String ultimologin;
-	
-	/*
-	 * @OneToOne(mappedBy = "login") private PrestadorDTO prestador;
-	 * 
-	 * public PrestadorDTO getPrestador() { return prestador; }
-	 * 
-	 * public void setPrestador(PrestadorDTO prestador) { this.prestador =
-	 * prestador; }
-	 */
-
-	public LoginDTO(int idlogin, String login, String senha, String email, String senhainicial, String ativo,
-			String ultimologin) {
+		
+	public LoginDTO(int idlogin, String login, String senha, String email, String senhainicial, String ativo, String ultimologin) {
 		super();
 		this.idlogin = idlogin;
 		this.login = login;

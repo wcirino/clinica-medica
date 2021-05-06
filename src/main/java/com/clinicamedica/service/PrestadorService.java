@@ -39,8 +39,7 @@ public class PrestadorService {
 
 	public void deletePrestadorService(PrestadorDTO obj) {
 		proxyPrestador.delete(obj);
-	}
-	  
+	}  
 	 
 
 }

@@ -10,4 +10,5 @@ public interface prestadoresRepository extends JpaRepository<PrestadorDTO,Intege
 	
 	PrestadorDTO findById(int id);
     PrestadorDTO save(int id);
+    PrestadorDTO findByLogin(String login);
 }
