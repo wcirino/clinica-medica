@@ -2943,6 +2943,40 @@ INSERT INTO exame (idnomeexame,idclienteparticular,data_exame) VALUES (13,273,"2
 INSERT INTO exame (idnomeexame,idclienteparticular,data_exame) VALUES (14,216,"2016-03-29 09:32:19"),(3,24,"2021-07-27 20:51:31"),(8,67,"2017-02-20 13:12:00"),(3,144,"2017-03-19 13:25:23"),(8,49,"2016-01-24 06:21:58"),(7,12,"2015-07-20 21:19:11"),(3,77,"2017-02-09 06:22:00"),(6,211,"2015-05-14 19:09:04"),(7,198,"2021-06-07 16:29:42"),(11,74,"2020-12-06 17:01:45");
 INSERT INTO exame (idnomeexame,idclienteparticular,data_exame) VALUES (15,55,"2020-11-01 08:11:10"),(9,149,"2022-04-25 03:16:32"),(8,168,"2015-08-20 07:49:22"),(11,44,"2019-01-19 02:59:18"),(7,55,"2017-09-21 20:51:31"),(11,12,"2016-09-02 19:38:59"),(13,266,"2020-12-21 04:20:26"),(5,27,"2019-01-24 05:01:57"),(12,59,"2019-12-22 05:03:49"),(7,127,"2019-03-04 09:38:40");
 
-
+  insert into perfil (perfil) values("ADMIN");
+  insert into perfil (perfil) values("PERFIL PRESTADOR 1");
+  insert into perfil (perfil) values("PERFIL PRESTADOR 2");
+  insert into perfil (perfil) values("PERFIL PRESTADOR 3");
+  insert into perfil (perfil) values("PERFIL BENEFICIARIO");
+  insert into perfil (perfil) values("PERFIL CONSULTA");
+  insert into perfil (perfil) values("PERFIL PRESTADOR 4");
+  insert into perfil (perfil) values("PERFIL PRESTADOR 5");
+  
+  insert into perfil_prestador (idperfil,idprestador) value (2,1);
+  insert into perfil_prestador (idperfil,idprestador) value (3,1);
+  insert into perfil_prestador (idperfil,idprestador) value (4,1);
+  insert into perfil_prestador (idperfil,idprestador) value (6,1);
+  insert into perfil_prestador (idperfil,idprestador) value (2,2);
+  insert into perfil_prestador (idperfil,idprestador) value (3,2);
+  insert into perfil_prestador (idperfil,idprestador) value (2,3);
+  insert into perfil_prestador (idperfil,idprestador) value (7,3);
+  insert into perfil_prestador (idperfil,idprestador) value (1,4);
+  insert into perfil_prestador (idperfil,idprestador) value (2,5);
+  insert into perfil_prestador (idperfil,idprestador) value (6,6);
+  insert into perfil_prestador (idperfil,idprestador) value (6,7);
+  insert into perfil_prestador (idperfil,idprestador) value (4,8);
+  insert into perfil_prestador (idperfil,idprestador) value (4,9);
+  insert into perfil_prestador (idperfil,idprestador) value (4,10);
+  insert into perfil_prestador (idperfil,idprestador) value (2,1);
+  insert into perfil_prestador (idperfil,idprestador) value (6,10);
+  insert into perfil_prestador (idperfil,idprestador) value (2,11);
+  insert into perfil_prestador (idperfil,idprestador) value (6,7);
+  insert into perfil_prestador (idperfil,idprestador) value (5,8);
+  insert into perfil_prestador (idperfil,idprestador) value (6,9);
+  insert into perfil_prestador (idperfil,idprestador) value (6,3);
+  insert into perfil_prestador (idperfil,idprestador) value (3,9);
+  insert into perfil_prestador (idperfil,idprestador) value (3,9);
+  insert into perfil_prestador (idperfil,idprestador) value (7,1);
+  insert into perfil_prestador (idperfil,idprestador) value (8,1);
 
 

@@ -187,3 +187,22 @@ constraint pk_exame_marcado PRIMARY KEY (idexame),
 constraint fk_exame_marcado foreign key(idnomeexame) references examenome(idnomeexame)
 
 );
+
+create table perfil (
+
+idperfil int auto_increment,
+perfil varchar(500),
+constraint pk_perfil primary key (idperfil)
+);
+
+create table perfil_prestador(
+
+idper_prest int auto_increment,
+idperfil int  not null,
+idprestador int not null,
+
+constraint pk_perfil_prestador primary key (idper_prest),
+constraint fk_perfilPrestador_perfil foreign key (idperfil) references perfil(idperfil),
+constraint fk_perfil_prestador foreign key (idprestador) references prestador(idprestador)
+
+);

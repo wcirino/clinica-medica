@@ -1,28 +1,54 @@
 package com.clinicamedica.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="perfil_prestador")
 public class PerfilAcessoDTO {
 
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY )
 	private int idper_prest;
-	private int idperfil;
-	private int idprestador;
+	
+	@OneToOne
+	@JoinColumn(name = "idperfil")
+	private PerfilDTO perfil;
+	
+	@ManyToOne
+	@JoinColumn(name = "idprestador")
+	private PrestadorDTO prestador;
 	
 	public int getIdper_prest() {
 		return idper_prest;
 	}
+	
 	public void setIdper_prest(int idper_prest) {
 		this.idper_prest = idper_prest;
 	}
-	public int getIdperfil() {
-		return idperfil;
+		
+	public PrestadorDTO getPrestador() {
+		return prestador;
 	}
-	public void setIdperfil(int idperfil) {
-		this.idperfil = idperfil;
+	
+	public void setPrestador(PrestadorDTO prestador) {
+		this.prestador = prestador;
 	}
-	public int getIdprestador() {
-		return idprestador;
+
+	public PerfilDTO getPerfil() {
+		return perfil;
 	}
-	public void setIdprestador(int idprestador) {
-		this.idprestador = idprestador;
+
+	public void setPerfil(PerfilDTO perfil) {
+		this.perfil = perfil;
 	}
 	
 	

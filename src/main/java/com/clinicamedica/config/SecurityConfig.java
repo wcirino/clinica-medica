@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    "/medico/**",
 		    "/api-prestador/**",
 		    "/api-login/**",
+		    "/api-perfil-acesso/**",
+		    "/api-perfil/**",
 		    "/swagger-ui**"
 		};
 	
