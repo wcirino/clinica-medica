@@ -31,6 +31,7 @@ public class PerfilAcessoController {
 	
 	@GetMapping(value = "/v2/buscaPerfilAcessoPrestador/{id}")
 	public List<perfil_acesso> buscaPerfilAcessoPrestadorNew(@PathVariable int id){
+		//perfil_acesso dto = dto.getPrestador().getIdlogin().getIdlogin()
 		return proxyperfil.buscaNivelAcessoList(id);
 	}
 }

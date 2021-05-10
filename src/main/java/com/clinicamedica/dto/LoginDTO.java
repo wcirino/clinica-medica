@@ -33,17 +33,16 @@ public class LoginDTO implements Serializable {
 	private  String login;
 	
 	@Column(name="senha")
-	@Size(min = 8, max = 25)
+	//@Size(min = 8, max = 25)
 	private  String senha; 
 	
-	@Column(name="email")
+	//@Column(name="email")
 	@Email(message = "Por favor, validar o email")
 	private  String email;
 	
 	@Column(name="senhainicial")
 	private  String senhainicial;
 	
-	@Size(min = 0, max = 1)
 	@Column(name="ativo")
 	private  String ativo;
 	

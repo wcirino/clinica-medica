@@ -1,11 +1,17 @@
 package com.clinicamedica.security;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UserSecurity implements UserDetails{
+import com.clinicamedica.dto.PerfilDTO;
+
+public class UusuarioSecurity implements UserDetails{
 
 
 	private static final long serialVersionUID = 1L;
@@ -15,6 +21,37 @@ public class UserSecurity implements UserDetails{
 	private String senha;
 	private String login;
 	private  Collection<? extends GrantedAuthority> authorities;
+	
+	
+	
+	public UusuarioSecurity() {
+		super();
+	}
+
+	public UusuarioSecurity(int id, String email, String senha, String login, List<PerfilDTO> perfis ){
+		super();
+		this.id = id;
+		this.email = email;
+		this.senha = senha;
+		this.login = login;
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getPerfil())).collect(Collectors.toList());
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -25,13 +62,13 @@ public class UserSecurity implements UserDetails{
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return null;
+		return senha;
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return login;
 	}
 
 	//Valida Se o usuario não ta expirado
@@ -52,14 +89,14 @@ public class UserSecurity implements UserDetails{
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
     // valida se não está liberado 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

@@ -16,5 +16,9 @@ public class PerfilService {
 		return proxyperfil.findById(id);
 	}
 	
+	public PerfilDTO inserirPerfilService(PerfilDTO dto) {
+		return proxyperfil.save(dto);
+	}
+	
 	
 }

@@ -4,9 +4,16 @@ import java.io.Serializable;
 
 public class Login implements Serializable {
 
+	private  int idlogin;
 	private  String login;
 	private  String email;
 	
+	public int getIdlogin() {
+		return idlogin;
+	}
+	public void setIdlogin(int idlogin) {
+		this.idlogin = idlogin;
+	}
 	public String getLogin() {
 		return login;
 	}
@@ -19,6 +26,7 @@ public class Login implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	
 	
 	

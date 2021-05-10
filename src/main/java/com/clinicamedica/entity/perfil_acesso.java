@@ -10,6 +10,7 @@ public class perfil_acesso implements Serializable {
 	private Perfil idperfil;
 	private Prestador prestador;
 	
+
 	public int getIdper_prest() {
 		return idper_prest;
 	}

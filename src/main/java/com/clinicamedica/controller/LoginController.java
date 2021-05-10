@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,5 +57,12 @@ public class LoginController {
 		return dto;
 	}
 	
-
+	@PutMapping(value = "/update-login")
+	public LoginDTO updateLogin(@RequestBody LoginDTO dto) {
+		String senha;
+		//String senhaDecodificada;
+		senha = criptografia.encode(dto.getSenha());
+		dto.setSenha(senha);
+		return proxyLogin.alterarLgin(dto);
+	}	
 }

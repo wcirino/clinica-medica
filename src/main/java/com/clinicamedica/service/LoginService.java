@@ -27,4 +27,8 @@ public class LoginService {
 		return dto;
 	}
 	
+	public LoginDTO alterarLgin(LoginDTO dto) {
+		return proxyLogin.save(dto);
+	}
+	
 }
