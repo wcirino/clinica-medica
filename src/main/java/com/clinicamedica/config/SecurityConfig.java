@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.clinicamedica.security.JWTAuthenticationFilter;
+import com.clinicamedica.security.JWTAuthorizationFilter;
 import com.clinicamedica.security.JWTUtil;
 
 @Configuration
@@ -69,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest()
 			.authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		//garantido que não terá sessão do usuário
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}

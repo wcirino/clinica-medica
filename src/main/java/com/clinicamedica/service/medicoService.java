@@ -52,7 +52,7 @@ public class medicoService {
 	}
 	
 	public medicoDTO alterarMedico(medicoDTO obj) {
-	   if(!proxyMedico.existsById(obj.getIdmedico())) {
+	   if(proxyMedico.existsById(obj.getIdmedico())) {
 		return proxyMedico.save(obj);
 	   }
 	   else
