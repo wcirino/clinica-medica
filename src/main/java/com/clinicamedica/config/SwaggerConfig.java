@@ -3,6 +3,7 @@ package com.clinicamedica.config;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 @Configuration
 @EnableSwagger2
+@EnableWebSecurity
 public class SwaggerConfig {
 
 	@Bean

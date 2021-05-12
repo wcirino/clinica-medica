@@ -44,4 +44,5 @@ public class PerfilAcessoService {
 	private List<perfil_acesso> PerfilAcessoModelMapperList(List<PerfilAcessoDTO> perfilAcesso){
 		return perfilAcesso.stream().map(obj -> PerfilAcessoModelMapperOne(obj)).collect(Collectors.toList());
 	}
+	
 }

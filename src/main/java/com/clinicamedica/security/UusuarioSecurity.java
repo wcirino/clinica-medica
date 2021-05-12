@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.clinicamedica.dto.PerfilDTO;
+import com.clinicamedica.entity.perfil_acesso;
 
 public class UusuarioSecurity implements UserDetails{
 
@@ -28,13 +29,13 @@ public class UusuarioSecurity implements UserDetails{
 		super();
 	}
 
-	public UusuarioSecurity(int id, String email, String senha, String login, List<PerfilDTO> perfis ){
+	public UusuarioSecurity(int id, String email, String senha, String login, List<perfil_acesso> perfis ){
 		super();
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
 		this.login = login;
-		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getPerfil())).collect(Collectors.toList());
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getPerfil().getPerfil())).collect(Collectors.toList());
 	}
 
 	public int getId() {
@@ -56,7 +57,7 @@ public class UusuarioSecurity implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return authorities;
 	}
 
 	@Override

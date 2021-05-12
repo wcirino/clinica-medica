@@ -10,8 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.clinicamedica.dto.LoginDTO;
-import com.clinicamedica.dto.PerfilDTO;
-import com.clinicamedica.repository.LoginRepository;
+import com.clinicamedica.entity.perfil_acesso;
 import com.clinicamedica.security.UusuarioSecurity;
 
 @Service
@@ -20,26 +19,29 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private LoginService proxyLogin; 
 	
+	@Autowired
+	private PrestadorService proxyPrestador;
+	
 	//Vai buscar pelo login
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
+		List<perfil_acesso> objList = new ArrayList<>();
 		LoginDTO dto = proxyLogin.buscaLoginService(login);
-		if(dto == null) {
+		if(dto == null) 
 			throw new UsernameNotFoundException(login);
+		else {
+		   objList  = proxyPrestador.buscaPrestadorLoginParaPerfilService(login);
 		}
+		  
+		/*
+		 * List<PerfilDTO> lista = new ArrayList<>(); PerfilDTO obj1 = new PerfilDTO();
+		 * PerfilDTO obj2 = new PerfilDTO(); obj1.setIdperfil(1);
+		 * obj1.setPerfil("ADMIN"); obj2.setIdperfil(2);
+		 * obj2.setPerfil("PERFIL PRESTADOR 1"); lista.add(obj1); lista.add(obj2);
+		 */
 		
-		List<PerfilDTO> lista = new ArrayList<>();
-		PerfilDTO  obj1 = new PerfilDTO();
-		PerfilDTO  obj2 = new PerfilDTO();
-		obj1.setIdperfil(1);
-		obj1.setPerfil("ADMIN");
-		obj2.setIdperfil(2);
-		obj2.setPerfil("PERFIL PRESTADOR 1");
-		lista.add(obj1);
-		lista.add(obj2);
-		
-		return  new UusuarioSecurity(dto.getIdlogin(), dto.getEmail(),dto.getSenha(),dto.getLogin(),lista);
+		return  new UusuarioSecurity(dto.getIdlogin(), dto.getEmail(),dto.getSenha(),dto.getLogin(),objList);
 	}
 
 }

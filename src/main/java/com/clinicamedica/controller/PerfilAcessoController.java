@@ -34,4 +34,6 @@ public class PerfilAcessoController {
 		//perfil_acesso dto = dto.getPrestador().getIdlogin().getIdlogin()
 		return proxyperfil.buscaNivelAcessoList(id);
 	}
+	
+
 }

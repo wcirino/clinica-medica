@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +51,7 @@ public class MedicoController {
 		return proxymedicoService.buscaSalvar(obj);				
 	}
 	
+    @PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/alterar-medico")
 	@ApiOperation(value = "Alterar medico")
 	@ResponseStatus(HttpStatus.OK)
@@ -95,6 +97,7 @@ public class MedicoController {
 		return dto;
 	}
 	
+	//@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping(value = "/v2/buscar-medico/{id}")
 	@ApiOperation(value = "Buscar medico por id ")
 	public medicoDTO buscaMedicoId(@PathVariable int id) {
@@ -119,5 +122,7 @@ public class MedicoController {
 		log.info("Chamando metodo via modelMapper One");
 		return proxymedicoService.buscaMedicoModelMapperOneService(id);
 	}
+	
+	
 	
 }

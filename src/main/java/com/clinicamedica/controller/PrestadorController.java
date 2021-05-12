@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.clinicamedica.dto.PrestadorAcessoDTO;
 import com.clinicamedica.dto.PrestadorDTO;
+import com.clinicamedica.entity.PrestadorAcessoPerfil;
 import com.clinicamedica.service.PrestadorService;
 
 @RestController
@@ -40,7 +42,6 @@ public class PrestadorController {
 	}
 
 	@PostMapping(value = "/inserir-prestador")
-
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> inserirPrestador(@RequestBody PrestadorDTO obj) {
 		if (obj == null) {
@@ -61,6 +62,11 @@ public class PrestadorController {
 	public ResponseEntity<?> deletePrestador(@RequestBody PrestadorDTO obj) {
 		proxyPrestador.deletePrestadorService(obj);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/buscarPrestadorLogin/{login}")
+	public List<PrestadorAcessoPerfil> buscarPrestadorANDLogin(@PathVariable String login){
+		return proxyPrestador.buscaPrestadorLoginService(login);
 	}
 	 
 

@@ -19,6 +19,8 @@ public interface PerfilAcessoRepository extends JpaRepository<PerfilAcessoDTO, I
     
     @Query(value = "SELECT u from PerfilAcessoDTO u WHERE u.prestador.idprestador = :id")
     List<PerfilAcessoDTO> findByPrestadorId(@Param("id") int id);  
+    
+ 
 
 	
 }

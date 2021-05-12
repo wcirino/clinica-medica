@@ -70,7 +70,8 @@ public class medicoService {
 	
 	private MedicoResponseDTO MedicoModelMapperOne(medicoDTO medico){
 		return  modelMapper.map(medico, MedicoResponseDTO.class);
-	}
+		
+     }
 	
 	private List<MedicoResponseDTO> MedicoModelMapperList(List<medicoDTO> dto){
 
