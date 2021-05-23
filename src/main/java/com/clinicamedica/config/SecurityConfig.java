@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.UserDetailsAwareConfigurer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -51,7 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    "/api-login/**",
 		    "/api-perfil-acesso/**",
 		    "/api-perfil/**"
-		};
+	};
+	
+	private static final String[] PUBLI_MATCHERS_POST = {
+		    "/api-perfil/**"
+	};
 	
 	//Sobreecrevendo metodo
 	@Override
@@ -67,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//Observação desabilitando csrf não vamos guarda  sessão
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, PUBLI_MATCHERS_GET).permitAll()
+			.antMatchers(HttpMethod.POST, PUBLI_MATCHERS_POST).permitAll()
 			.antMatchers(PUBLI_MATCHERS)
 			.permitAll()
 			.anyRequest()

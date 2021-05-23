@@ -34,13 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		   objList  = proxyPrestador.buscaPrestadorLoginParaPerfilService(login);
 		}
 		  
-		/*
-		 * List<PerfilDTO> lista = new ArrayList<>(); PerfilDTO obj1 = new PerfilDTO();
-		 * PerfilDTO obj2 = new PerfilDTO(); obj1.setIdperfil(1);
-		 * obj1.setPerfil("ADMIN"); obj2.setIdperfil(2);
-		 * obj2.setPerfil("PERFIL PRESTADOR 1"); lista.add(obj1); lista.add(obj2);
-		 */
-		
 		return  new UusuarioSecurity(dto.getIdlogin(), dto.getEmail(),dto.getSenha(),dto.getLogin(),objList);
 	}
 

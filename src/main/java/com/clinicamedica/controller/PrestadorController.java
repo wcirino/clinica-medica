@@ -27,26 +27,32 @@ import com.clinicamedica.service.PrestadorService;
 @RequestMapping(value = "/api-prestador")
 public class PrestadorController {
 	
+	@Autowired
+	private static final Logger log = LoggerFactory.getLogger(MedicoController.class);
 	
 	@Autowired
 	private PrestadorService proxyPrestador;
 	
 	@GetMapping(value = "/busca-todos-usuario")
-	public List<PrestadorDTO> buscaPrestadoresService() {
-		return proxyPrestador.buscaPrestadoresService();
+	public ResponseEntity<?> buscaPrestadoresService() {
+		log.info("Iniciando controller busca-todos-usuario");
+		List<PrestadorDTO> lista = proxyPrestador.buscaPrestadoresService();
+		return new ResponseEntity<>(lista,HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/buscaId/{id}")
-	public PrestadorDTO buscarPorIDService(@PathVariable int id) {
-		return proxyPrestador.buscarPorIDService(id);
+	public ResponseEntity<?> buscarPorIDService(@PathVariable int id) {
+		log.info("iniciando controller metodo buscarPorIDService busca por id");
+		return new ResponseEntity<>(proxyPrestador.buscarPorIDService(id),HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/inserir-prestador")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> inserirPrestador(@RequestBody PrestadorDTO obj) {
-		if (obj == null) {
+		log.info("iniciando controller metodo inserirPrestador");
+		if (obj != null) {
 			proxyPrestador.InserirPrestadorService(obj);
-			return new ResponseEntity<>(HttpStatus.CREATED);
+			return new ResponseEntity<>("Usuário cadastrad com sucesso!!",HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -54,19 +60,22 @@ public class PrestadorController {
 
 	@PutMapping(value = "/upodate-prestador")
 	public ResponseEntity<?> updatePrestador(@RequestBody PrestadorDTO obj) {
+		log.info("Iniciando controller de alterar prestador upodate-prestador");
 		proxyPrestador.alterarPrestadorService(obj);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/delete-prestador")
 	public ResponseEntity<?> deletePrestador(@RequestBody PrestadorDTO obj) {
+		log.info("Deletando usuario da base");
 		proxyPrestador.deletePrestadorService(obj);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/buscarPrestadorLogin/{login}")
-	public List<PrestadorAcessoPerfil> buscarPrestadorANDLogin(@PathVariable String login){
-		return proxyPrestador.buscaPrestadorLoginService(login);
+	public ResponseEntity<?> buscarPrestadorANDLogin(@PathVariable String login){
+		log.info("iniciando a busca por login na tabela de login");
+		return new ResponseEntity<>(proxyPrestador.buscaPrestadorLoginService(login),HttpStatus.OK);
 	}
 	 
 

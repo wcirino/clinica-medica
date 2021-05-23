@@ -2978,5 +2978,8 @@ INSERT INTO exame (idnomeexame,idclienteparticular,data_exame) VALUES (15,55,"20
   insert into perfil_prestador (idperfil,idprestador) value (3,9);
   insert into perfil_prestador (idperfil,idprestador) value (7,1);
   insert into perfil_prestador (idperfil,idprestador) value (8,1);
+  
+  insert into sexo (sexo) value ("Masculino"); 
+  insert into sexo (sexo) value ("Feminino"); 
 
 

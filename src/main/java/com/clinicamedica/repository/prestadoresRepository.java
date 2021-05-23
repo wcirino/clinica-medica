@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.clinicamedica.dto.PrestadorAcessoDTO;
 import com.clinicamedica.dto.PrestadorDTO;
+import com.clinicamedica.dto.PrestadorLoginDTO;
 import com.clinicamedica.dto.medicoDTO;
 
 
@@ -16,6 +17,7 @@ public interface prestadoresRepository extends JpaRepository<PrestadorDTO,Intege
 	PrestadorDTO findById(int id);
     PrestadorDTO save(int id);
     PrestadorDTO findByLogin(String login);
+    PrestadorLoginDTO save(PrestadorLoginDTO dto);
     
     @Query(value = "SELECT p from PrestadorAcessoDTO p INNER JOIN p.login l WHERE l.login.login = :login ")
     List<PrestadorAcessoDTO> findByLoginPrestador(@Param("login") String login);

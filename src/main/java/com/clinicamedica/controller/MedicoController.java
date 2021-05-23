@@ -51,7 +51,7 @@ public class MedicoController {
 		return proxymedicoService.buscaSalvar(obj);				
 	}
 	
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/alterar-medico")
 	@ApiOperation(value = "Alterar medico")
 	@ResponseStatus(HttpStatus.OK)
@@ -97,7 +97,7 @@ public class MedicoController {
 		return dto;
 	}
 	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasRole(ADMIN)")
 	@GetMapping(value = "/v2/buscar-medico/{id}")
 	@ApiOperation(value = "Buscar medico por id ")
 	public medicoDTO buscaMedicoId(@PathVariable int id) {
@@ -109,6 +109,7 @@ public class MedicoController {
 	//-----------------------------------------------------------------------------------------
 	//APENAS COLOCANDO MODELMAPPER
 	
+	@PreAuthorize("hasRole(ADMIN)")
 	@GetMapping(value = "/v3/buscaMedico")
 	@ApiOperation(value = "Buscar todos os medicos via modelMapper List")
 	public List<MedicoResponseDTO> buscaMedicoModelMapper(){
@@ -117,6 +118,7 @@ public class MedicoController {
 	}
 	
 	@GetMapping(value = "/v3/buscaMedicoOne/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	@ApiOperation(value = "Buscar todos os medicos modelMapper One")
 	public MedicoResponseDTO buscaMedicoModelMapperone(@PathVariable int id){
 		log.info("Chamando metodo via modelMapper One");
