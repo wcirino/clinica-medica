@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.clinicamedica.exception.FileException;
 
 @Service
 public class S3Service {
@@ -38,7 +36,7 @@ public class S3Service {
 			 return uploadFile(is, filename, contentType);
 		} catch (IOException e) {
 			LOG.info("Erro : "+e.getMessage());
-			throw new  RuntimeException("Erro de io: " + e.getMessage());
+			throw new  FileException("Erro de io: " + e.getMessage());
 		}
 	}
 	
@@ -52,7 +50,7 @@ public class S3Service {
 			return  s3client.getUrl(bucketName, filename).toURI();
 		} 
 		catch (URISyntaxException e) {
-			throw new RuntimeException("Erro ao converter URL em URI");
+			throw new FileException("Erro ao converter URL em URI");
 		}
 	}
 }

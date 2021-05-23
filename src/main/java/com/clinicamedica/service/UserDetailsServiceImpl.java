@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if(dto == null) 
 			throw new UsernameNotFoundException(login);
 		else {
-		   objList  = proxyPrestador.buscaPrestadorLoginParaPerfilService(login);
+		  // objList  = proxyPrestador.buscaPrestadorLoginParaPerfilService(login);
 		}
 		  
 		return  new UusuarioSecurity(dto.getIdlogin(), dto.getEmail(),dto.getSenha(),dto.getLogin(),objList);

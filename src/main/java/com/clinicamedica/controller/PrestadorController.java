@@ -1,11 +1,13 @@
 package com.clinicamedica.controller;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.clinicamedica.dto.PrestadorDTO;
+import com.clinicamedica.file.ImageService;
+import com.clinicamedica.file.S3Service;
 import com.clinicamedica.service.PrestadorService;
 
 @RestController
@@ -32,6 +36,9 @@ public class PrestadorController {
 	
 	@Autowired
 	private PrestadorService proxyPrestador;
+		
+	@Autowired
+	private ImageService imageService;
 	
 	@GetMapping(value = "/busca-todos-usuario")
 	public ResponseEntity<?> buscaPrestadoresService() {
@@ -80,9 +87,16 @@ public class PrestadorController {
 	 
 	
 	@PostMapping(value = "/prestador-upload-arquivo")
-	public ResponseEntity<Void> uploadPrestadorFile(@RequestParam(name="file") MultipartFile file){
+	public ResponseEntity<?> uploadPrestadorFile(@RequestParam(name="file") MultipartFile file){
 		URI uri = proxyPrestador.uploadPrestador(file);
-		return ResponseEntity.created(uri).build();
+		String url = uri.toString();
+		return new ResponseEntity<>(url,HttpStatus.CREATED);
+	}
+	
+	@PostMapping(value="/prestador-upload-arquivo-format/{id}")
+	public ResponseEntity<?> uploadPrestadorFileFormat(@RequestParam(name="file") MultipartFile file,@PathVariable int id){
+		URI uri = proxyPrestador.uploadPrestadorFormat(file, id); 
+		return new ResponseEntity<>(uri,HttpStatus.CREATED);
 	}
 
 }
