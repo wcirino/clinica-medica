@@ -1,5 +1,6 @@
 package com.clinicamedica.service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.clinicamedica.repository.prestadoresRepository;
 import com.clinicamedica.controller.MedicoController;
@@ -20,6 +22,7 @@ import com.clinicamedica.dto.PrestadorLoginDTO;
 import com.clinicamedica.dto.medicoDTO;
 import com.clinicamedica.entity.PrestadorAcessoPerfil;
 import com.clinicamedica.entity.perfil_acesso;
+import com.clinicamedica.file.S3Service;
 
 @Service
 public class PrestadorService {
@@ -36,6 +39,9 @@ public class PrestadorService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	@Autowired
 	private static final Logger log = LoggerFactory.getLogger(MedicoController.class);
@@ -93,6 +99,9 @@ public class PrestadorService {
 		return null;
 	}
 	
+	public URI uploadPrestador(MultipartFile multipartFile) {
+		return s3Service.uploadFile(multipartFile);
+	}
 	//----------------------ModelMapper--------------------------------------------------
 	
 	private PrestadorAcessoPerfil PrestadormodelMapperOne(PrestadorAcessoDTO dto) {

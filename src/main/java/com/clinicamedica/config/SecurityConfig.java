@@ -53,7 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 	
 	private static final String[] PUBLI_MATCHERS_POST = {
-		    "/api-perfil/**"
+		    "/api-perfil/**",
+			"/api-prestador/prestador-upload-arquivo"
 	};
 	
 	//Sobreecrevendo metodo

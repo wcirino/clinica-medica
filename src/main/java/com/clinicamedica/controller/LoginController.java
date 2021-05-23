@@ -35,7 +35,6 @@ public class LoginController {
 		String senha;
 		String senhaDecodificada;
 		senha = criptografia.encode("123456");
-		
 		return senha;
 	}
 	
