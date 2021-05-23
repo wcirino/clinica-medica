@@ -52,6 +52,9 @@ public class PrestadorService {
 	@Value("${img.prefix.client.profile}")
 	private String prefix;
 	
+	@Value("${img.profile.size}")
+	private int size;
+	
 	@Autowired
 	private static final Logger log = LoggerFactory.getLogger(MedicoController.class);
 	
@@ -115,7 +118,9 @@ public class PrestadorService {
 	public URI uploadPrestadorFormat(MultipartFile file,int id) {
 		log.info("Class PrestadorService  upload com  format");
 		BufferedImage jpgImage = imageService.getJpgImageFromFile(file);
-		String filename = prefix + id + "jpg";
+		jpgImage = imageService.cropSquare(jpgImage);
+		jpgImage = imageService.resize(jpgImage, id);
+		String filename = prefix + id + ".jpg";
 		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"),filename,"image");
 	
 	}
