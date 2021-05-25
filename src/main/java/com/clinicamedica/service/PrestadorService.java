@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,7 @@ import com.clinicamedica.dto.PrestadorLoginDTO;
 import com.clinicamedica.dto.medicoDTO;
 import com.clinicamedica.entity.PrestadorAcessoPerfil;
 import com.clinicamedica.entity.perfil_acesso;
+import com.clinicamedica.exception.ServiceBaseException;
 import com.clinicamedica.file.ImageService;
 import com.clinicamedica.file.S3Service;
 
@@ -56,6 +58,9 @@ public class PrestadorService {
 	private int size;
 	
 	@Autowired
+	private BCryptPasswordEncoder criptografia;
+	
+	@Autowired
 	private static final Logger log = LoggerFactory.getLogger(MedicoController.class);
 	
 	
@@ -80,20 +85,37 @@ public class PrestadorService {
 	}
 
 	public int InserirPrestadorService(PrestadorDTO obj) {
-		
-		log.info("Class PrestadorService chamando InserirPrestadorService");
-		PrestadorLoginDTO dto = new PrestadorLoginDTO();
-		LoginDTO lg = proxyLogin.inserirLogin(obj.getLogin());
-		dto = prestadorLoginMapperOne(obj);
-		dto.setIdlogin(lg.getIdlogin());
-		proxyPrestador.save(dto);
-		return 1;
+		try {
+			log.info("Class PrestadorService chamando InserirPrestadorService");
+			PrestadorLoginDTO dto = new PrestadorLoginDTO();
+			LoginDTO lg = new LoginDTO(obj.getLogin());
+			String senha = criptografia.encode(obj.getLogin().getSenha());
+			lg.setSenha(senha);
+			LoginDTO lgn = proxyLogin.inserirLogin(lg);
+			dto = prestadorLoginMapperOne(obj);
+			dto.setIdlogin(lgn.getIdlogin());
+			proxyPrestador.save(dto);
+			return 1;
+		} catch (Exception e) {
+          throw new ServiceBaseException("Erro no insert Prestador", e);
+		}
 	}
 
 	public void deletePrestadorService(PrestadorDTO obj) {
 		log.info("Class PrestadorService chamando deletePrestadorService");
 		proxyPrestador.delete(obj);
 	}  
+	
+	public void DesativarPrestadorService(String flag, int id) {
+		try {
+
+			log.info("Class PrestadorService chamando DesativaPrestadorService");
+			proxyPrestador.DesativarPrestador(flag, id);
+		} catch (Exception e) {
+			log.info("Class PrestadorServiceException : \n "+e.getMessage() );
+			throw new ServiceBaseException("Erro DesativarPrestador", e);
+		}
+	}
 	 
 	public List<PrestadorAcessoPerfil> buscaPrestadorLoginService(String login){
 		log.info("Class PrestadorService chamando buscaPrestadorLoginService");

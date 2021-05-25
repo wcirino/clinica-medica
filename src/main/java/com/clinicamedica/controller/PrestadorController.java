@@ -2,13 +2,18 @@ package com.clinicamedica.controller;
 
 import java.awt.image.BufferedImage;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +26,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.springframework.core.io.Resource;
+
+import com.clinicamedica.dto.DesativarPrestadorDTO;
 import com.clinicamedica.dto.PrestadorDTO;
+import com.clinicamedica.entity.FileUploadFileResponse;
+import com.clinicamedica.file.FileStorageService;
 import com.clinicamedica.file.ImageService;
 import com.clinicamedica.file.S3Service;
 import com.clinicamedica.service.PrestadorService;
+import com.google.common.net.HttpHeaders;
 
 @RestController
 @RequestMapping(value = "/api-prestador")
@@ -39,6 +51,9 @@ public class PrestadorController {
 		
 	@Autowired
 	private ImageService imageService;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
 	
 	@GetMapping(value = "/busca-todos-usuario")
 	public ResponseEntity<?> buscaPrestadoresService() {
@@ -98,5 +113,55 @@ public class PrestadorController {
 		URI uri = proxyPrestador.uploadPrestadorFormat(file, id); 
 		return new ResponseEntity<>(uri,HttpStatus.CREATED);
 	}
+	
+	@PostMapping(value = "/desativar-prestador")
+	public ResponseEntity<?> DesativarPrestador(@RequestBody DesativarPrestadorDTO dto){
+		log.info("iniciando o processo de  desativar prestador");
+		proxyPrestador.DesativarPrestadorService(dto.getFlag(),dto.getId());
+		return new ResponseEntity<>("OK",HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/uploadFile")
+	public FileUploadFileResponse uploadFile(@RequestParam("file") MultipartFile file){
+		String fileName = fileStorageService.storeFile(file);
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+				.path("/api-prestador/downloadFile/")
+				.path(fileName)
+				.toUriString();
+		
+		return new FileUploadFileResponse(fileName, fileDownloadUri, file.getContentType(),file.getSize());
+	}
+	
+	@PostMapping("/uploadFiles")
+	public  List<FileUploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files){
+		return Arrays.asList(files)
+				.stream()
+				.map(f -> uploadFile(f))
+				.collect(Collectors.toList());
+	}
+	
+	@GetMapping("/downloadFile/{fileName:.+}")
+	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
+		
+		Resource resource = fileStorageService.loadfileasResource(fileName);
+		String contentType = null;
+		
+		try {
+			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+		} catch (Exception e) {
+			log.info("Não consegui determina o arquivo");
+		}
+		
+		if(contentType == null) {
+			contentType = "application/octet-stream";
+		}
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.parseMediaType(contentType))
+				.header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + resource.getFilename() + "\"")
+				.body(resource);
+		
+	}
+	
 
 }

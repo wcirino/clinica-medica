@@ -49,6 +49,13 @@ public class LoginDTO implements Serializable {
 	@Column(name="ultimologin")
 	private  String ultimologin;
 		
+	public LoginDTO(LoginDTO dto) {
+		this.login = dto.login;
+		this.senha = dto.senha;
+		this.email = dto.email;
+		this.senhainicial = "S";
+	}
+	
 	public LoginDTO(int idlogin, String login, String senha, String email, String senhainicial, String ativo, String ultimologin) {
 		super();
 		this.idlogin = idlogin;
