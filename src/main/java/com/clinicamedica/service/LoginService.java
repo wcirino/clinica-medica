@@ -57,6 +57,17 @@ public class LoginService {
 		
 	}
 	
+	public void EnviarEmailLoginhtml() {
+		DadosParaEmailDTO email = new DadosParaEmailDTO();
+		email.setAssunto("O assunto");
+		email.setCarteirinha("000000000000000");
+		email.setDate(new Date(System.currentTimeMillis()));
+		email.setMsg("Enviando os email ai ok");
+		email.setNome("Willyan");
+		email.setEmail("wf.cirino@bol.com.br");
+		proxyEmail.sendOrderConfirmationHtmlEmail(email,"email/CriacaoBeneficiario");
+		
+	}
 	
 	
 }

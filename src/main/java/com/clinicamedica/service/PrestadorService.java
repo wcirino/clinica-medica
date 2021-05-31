@@ -12,17 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.clinicamedica.repository.prestadoresRepository;
 import com.clinicamedica.controller.MedicoController;
 import com.clinicamedica.dto.LoginDTO;
-import com.clinicamedica.dto.MedicoResponseDTO;
 import com.clinicamedica.dto.PrestadorAcessoDTO;
 import com.clinicamedica.dto.PrestadorDTO;
 import com.clinicamedica.dto.PrestadorLoginDTO;
-import com.clinicamedica.dto.medicoDTO;
 import com.clinicamedica.entity.PrestadorAcessoPerfil;
 import com.clinicamedica.entity.perfil_acesso;
 import com.clinicamedica.exception.ServiceBaseException;
@@ -117,6 +114,22 @@ public class PrestadorService {
 		}
 	}
 	 
+	/*
+	 * public void InserirPrestadorJPA(PrestadorDTO prest) {
+	 * log.info("Class PrestadorService chamando InserirPrestadorJPA"); //:idlogin,
+	 * :nome_comp, :cpf,
+	 * :data_nasc,:data_admissao,:sexo,:idsetor,:telefone,:idestado int idlogin;
+	 * LoginDTO lg = new LoginDTO(prest.getLogin()); String senha =
+	 * criptografia.encode(prest.getLogin().getSenha()); lg.setSenha(senha);
+	 * LoginDTO lgn = proxyLogin.inserirLogin(lg); idlogin = lgn.getIdlogin();
+	 * proxyPrestador.inserirPrestador(lgn.getIdlogin(),prest.getNome_comp()
+	 * ,prest.getCpf(),prest.getData_nasc(),prest.getData_admissao(),
+	 * prest.getSexo(), prest.getIdsetor(), prest.getTelefone(),
+	 * prest.getIdestado()); log.info("Finalizando class InserirPrestadorJPA");
+	 * 
+	 * }
+	 */
+	
 	public List<PrestadorAcessoPerfil> buscaPrestadorLoginService(String login){
 		log.info("Class PrestadorService chamando buscaPrestadorLoginService");
 		return PrestadorModelMapperList(proxyPrestador.findByLoginPrestador(login));
@@ -135,6 +148,10 @@ public class PrestadorService {
 	
 	public URI uploadPrestador(MultipartFile multipartFile) {
 		return s3Service.uploadFile(multipartFile);
+	}
+	
+	public URI uploadPrestadorImgHTML(MultipartFile multipartFile) {
+		return s3Service.uploadFileHTML(multipartFile);
 	}
 	
 	public URI uploadPrestadorFormat(MultipartFile file,int id) {

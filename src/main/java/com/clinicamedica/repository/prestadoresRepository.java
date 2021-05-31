@@ -12,14 +12,13 @@ import org.springframework.data.repository.query.Param;
 import com.clinicamedica.dto.PrestadorAcessoDTO;
 import com.clinicamedica.dto.PrestadorDTO;
 import com.clinicamedica.dto.PrestadorLoginDTO;
-import com.clinicamedica.dto.medicoDTO;
-
 
 public interface prestadoresRepository extends JpaRepository<PrestadorDTO,Integer> {
 	
 	PrestadorDTO findById(int id);
     PrestadorDTO save(int id);
     PrestadorDTO findByLogin(String login);
+    PrestadorDTO findBycpf(String cpf);
     PrestadorLoginDTO save(PrestadorLoginDTO dto);
     
     @Query(value = "SELECT p from PrestadorAcessoDTO p INNER JOIN p.login l WHERE l.login.login = :login ")
@@ -31,13 +30,11 @@ public interface prestadoresRepository extends JpaRepository<PrestadorDTO,Intege
     @Query(value = "update PrestadorDTO p set p.ativo = :flag where p.idprestador = :id")
     void DesativarPrestador(@Param("flag") String flag, @Param("id") int id);
     
-	/*
-	 * @Transactional
-	 * 
-	 * @Modifying
-	 * 
-	 * @Query(value = "") void
-	 */
+   // @Modifying
+   // @Query(value = "insert into PrestadorDTO  (idlogin,nome_comp, cpf, data_nasc,data_admissao,sexo,idsetor,telefone,idestado) values (:idlogin, :nome_comp, :cpf, :data_nasc,:data_admissao,:sexo,:idsetor,:telefone,:idestado)")
+   // void inserirPrestador( @Param("idlogin") int idlogin,  @Param("nome_comp") String nome_comp,  @Param("cpf") String cpf, @Param("data_nasc") Date data_nasc, @Param("data_admissao") Date data_admissao,
+    					  // @Param("sexo") int sexo, @Param("idsetor") int idsetor, @Param("telefone") String telefone, @Param("idestado") int idestado);
+   
     //"SELECT u from PerfilAcessoDTO u WHERE u.prestador.idprestador = :id")
     //SELECT c, p.name FROM Country c JOIN c.capital p
     //SELECT c1, c2 FROM Country c1 INNER JOIN c1.neighbors c2

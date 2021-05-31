@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.clinicamedica.email.EmailService;
-import com.clinicamedica.email.MockEmailService;
 import com.clinicamedica.email.SmtpEmailService;
 
 @Configuration

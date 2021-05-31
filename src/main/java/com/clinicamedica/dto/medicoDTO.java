@@ -10,15 +10,12 @@ import  javax.persistence.Table ;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import org.apache.logging.log4j.message.AsynchronouslyFormattable;
-
-import javassist.SerialVersionUID;
 
 @Entity
 @Table(name = "medico")
 public class medicoDTO implements Serializable{
 	
-	private static final long SerialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY )
@@ -69,9 +66,6 @@ public class medicoDTO implements Serializable{
 		this.telefone2 = telefone2;
 	}
 
-	public static long getSerialversionuid() {
-		return SerialVersionUID;
-	}
 
 	public int getIdmedico() {
 		return idmedico;

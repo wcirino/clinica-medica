@@ -33,7 +33,7 @@ public class LoginController {
 	@GetMapping(value = "/criptografia")
 	public String GerarSenha(){
 		String senha;
-		String senhaDecodificada;
+	//	String senhaDecodificada;
 		senha = criptografia.encode("123456");
 		return senha;
 	}
@@ -83,6 +83,11 @@ public class LoginController {
 	  proxyLogin.EnviarEmailLogin();		
 	}
 	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping(value = "/enviarMail-html")
+	public void enviarMail2() {
+	  proxyLogin.EnviarEmailLoginhtml();		
+	}
 	//------------------------------------------------------------------------------------------------------
 	
 	

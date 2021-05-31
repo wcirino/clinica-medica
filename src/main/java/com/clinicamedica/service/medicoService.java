@@ -1,18 +1,18 @@
 package com.clinicamedica.service;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.clinicamedica.dto.MedicoResponseDTO;
 import com.clinicamedica.dto.medicoDTO;
+import com.clinicamedica.exception.ServiceBaseException;
 import com.clinicamedica.repository.medicoRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.swing.plaf.metal.MetalDesktopIconUI;
 
 @Service
 public class medicoService {
@@ -22,6 +22,9 @@ public class medicoService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private static final Logger log = LoggerFactory.getLogger(medicoService.class);
 
 	public List<medicoDTO> BuscaMedico() {
 		List<medicoDTO> dto = new ArrayList<>();
@@ -58,6 +61,11 @@ public class medicoService {
 	   else
 		   return null;
 	}
+	
+	public List<medicoDTO> buscarPorNomeService(String nome){
+		List<medicoDTO> dto = proxyMedico.buscaPorLike(nome);
+		return dto;
+	}
 
 	public int deleteMedica(int id) {
 		try {
@@ -68,6 +76,19 @@ public class medicoService {
 		}
 	}
 	
+	public void DesativaAtiva(String AD, int id) {
+		try {
+			proxyMedico.desativarAtivaMedico(id,AD);
+		}
+		catch(Exception e) {
+			log.info(e.getMessage());
+			throw new ServiceBaseException("Erro Desativa Prestador", e);
+		}
+	}
+	
+	
+	
+	//--------------------------------------------------------------------------------------------------------------------------
 	private MedicoResponseDTO MedicoModelMapperOne(medicoDTO medico){
 		return  modelMapper.map(medico, MedicoResponseDTO.class);
 		

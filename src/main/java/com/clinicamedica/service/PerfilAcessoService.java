@@ -7,9 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.clinicamedica.dto.MedicoResponseDTO;
 import com.clinicamedica.dto.PerfilAcessoDTO;
-import com.clinicamedica.dto.medicoDTO;
 import com.clinicamedica.entity.perfil_acesso;
 import com.clinicamedica.repository.PerfilAcessoRepository;
 

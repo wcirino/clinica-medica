@@ -27,6 +27,9 @@ public class S3Service {
 	@Value("${s3.bucket}")
 	private String bucketName;
 	
+	@Value("${s3.bucket_img}")
+	private String bucketNameHmltIMG;
+	
 	public URI uploadFile(MultipartFile multipartFile) {
 		try {
 			 LOG.info("iniciando o upload");
@@ -48,6 +51,35 @@ public class S3Service {
 			s3client.putObject(bucketName, filename, is, meta);
 			LOG.info("finalizando upload");
 			return  s3client.getUrl(bucketName, filename).toURI();
+		} 
+		catch (URISyntaxException e) {
+			throw new FileException("Erro ao converter URL em URI");
+		}
+	}
+	
+	// Teste poderia ter criado  um metodo para selecionar o bucket certo.
+	
+	public URI uploadFileHTML(MultipartFile multipartFile) {
+		try {
+			 LOG.info("iniciando o upload");
+			 String filename = multipartFile.getOriginalFilename();
+			 InputStream is = multipartFile.getInputStream();
+			 String contentType = multipartFile.getContentType();
+			 return uploadFileIMG(is, filename, contentType);
+		} catch (IOException e) {
+			LOG.info("Erro : "+e.getMessage());
+			throw new  FileException("Erro de io: " + e.getMessage());
+		}
+	}
+	
+	public URI uploadFileIMG(InputStream is, String filename, String contentType) {
+		try {
+			ObjectMetadata meta = new ObjectMetadata();
+			meta.setContentType(contentType);
+			LOG.info("iniciando o upload");
+			s3client.putObject(bucketNameHmltIMG, filename, is, meta);
+			LOG.info("finalizando upload");
+			return  s3client.getUrl(bucketNameHmltIMG, filename).toURI();
 		} 
 		catch (URISyntaxException e) {
 			throw new FileException("Erro ao converter URL em URI");

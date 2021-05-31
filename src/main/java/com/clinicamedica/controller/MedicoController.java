@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.clinicamedica.dto.DesativaAtivaMedicoDTO;
 import com.clinicamedica.dto.MedicoResponseDTO;
 import com.clinicamedica.dto.medicoDTO;
 import com.clinicamedica.exception.ExceptionBase;
@@ -125,6 +126,30 @@ public class MedicoController {
 		return proxymedicoService.buscaMedicoModelMapperOneService(id);
 	}
 	
+	
+	@GetMapping(value = "/buscar-medico-like/{medico}")
+	public ResponseEntity<?> buscaMedicoLike(@PathVariable String medico){
+		log.info("Buscando medico com like");
+		return new ResponseEntity<>(proxymedicoService.buscarPorNomeService(medico), HttpStatus.CREATED);
+	}
+	
+	@PostMapping(value = "/desativa-ativa-medico")
+	public ResponseEntity<?> desativaAtiva(@RequestBody DesativaAtivaMedicoDTO obj){
+		log.info("Desativando e ativando medico");
+		if(obj.getStatus().equals(1)) {
+			obj.setAD("A");
+			proxymedicoService.DesativaAtiva(obj.getAD(),obj.getId());
+			return new ResponseEntity<>("Ativando Medico",HttpStatus.CREATED); 
+		}
+		else if(obj.getStatus().equals(2)) {
+			obj.setAD("D");
+			proxymedicoService.DesativaAtiva(obj.getAD(),obj.getId());
+			return new ResponseEntity<>("Desativando Medico",HttpStatus.CREATED); 
+		}
+		else
+			return new ResponseEntity<>("Não foi possivel",HttpStatus.BAD_REQUEST);
+		
+	}
 	
 	
 }

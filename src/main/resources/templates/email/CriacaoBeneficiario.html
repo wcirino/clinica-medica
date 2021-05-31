@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Beneficiario Confirmação de criação cadastro</title>
+	</head>
+<body>
+ <div style="width:700px; height: 400px; border-style: solid; border-color: black; border-width: 1px; ">
+ 	<div>
+ 	 <img alt="Clinica medica" src="https://clinica-medica-cm-html.s3-sa-east-1.amazonaws.com/clinica-medica_principal.jpg" width="700" height="100">
+ 	</div>
+ 	<div>
+ 		<div style="margin-top: 50px; margin-left: 45px;">
+ 			Olá,<span th:text="${dadosEmail.nome}"> </span>!! Tudo bem?<br><br>
+
+			Precisamos da sua confirmação para liberar o seu cadastro..<br><br>
+			
+			Click no <a href="*">link</a><br><br>
+			
+			Este é um procedimento 100% seguro.<br>
+
+			Em caso de dúvidas entre em contato com a Central de Atendimento.<br>
+
+			Por favor, não responda este e-mail. Ele foi gerado automaticamente.<br>
+			
+ 		</div>
+ 	</div>
+ </div>
+</body>
+</html>

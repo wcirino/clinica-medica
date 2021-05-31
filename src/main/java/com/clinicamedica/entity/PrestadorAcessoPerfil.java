@@ -1,17 +1,5 @@
 package com.clinicamedica.entity;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-import org.hibernate.validator.constraints.Length;
-
-import com.clinicamedica.dto.LoginDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class PrestadorAcessoPerfil {
 
 	private int idprestador;

@@ -108,6 +108,13 @@ public class PrestadorController {
 		return new ResponseEntity<>(url,HttpStatus.CREATED);
 	}
 	
+	@PostMapping(value = "/prestador-upload-arquivo-img")
+	public ResponseEntity<?> uploadPrestadorFileImg(@RequestParam(name="file") MultipartFile file){
+		URI uri = proxyPrestador.uploadPrestadorImgHTML(file);
+		String url = uri.toString();
+		return new ResponseEntity<>(url,HttpStatus.CREATED);
+	}
+	
 	@PostMapping(value="/prestador-upload-arquivo-format/{id}")
 	public ResponseEntity<?> uploadPrestadorFileFormat(@RequestParam(name="file") MultipartFile file,@PathVariable int id){
 		URI uri = proxyPrestador.uploadPrestadorFormat(file, id); 
@@ -120,6 +127,14 @@ public class PrestadorController {
 		proxyPrestador.DesativarPrestadorService(dto.getFlag(),dto.getId());
 		return new ResponseEntity<>("OK",HttpStatus.CREATED);
 	}
+	
+	/*
+	 * @PostMapping(value = "/Inserir-prestador-jpa") public ResponseEntity<?>
+	 * InserirPrestadorJPA(@RequestBody PrestadorDTO obj){
+	 * log.info("iniciando o processo de inserir-prestador-JPA");
+	 * proxyPrestador.InserirPrestadorJPA(obj); return new
+	 * ResponseEntity<>("OK Inserir",HttpStatus.CREATED); }
+	 */
 	
 	@PostMapping("/uploadFile")
 	public FileUploadFileResponse uploadFile(@RequestParam("file") MultipartFile file){

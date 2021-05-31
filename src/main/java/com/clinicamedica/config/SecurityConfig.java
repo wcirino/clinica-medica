@@ -49,14 +49,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    "/api-prestador/**",
 		    "/api-login/**",
 		    "/api-perfil-acesso/**",
-		    "/api-perfil/**"
+		    "/api-perfil/**",
+		    "/medico/buscar-medico-like",
+		    "/api-beneficiario/**",
+		    "/api-especialidade/**"
 	};
 	
 	private static final String[] PUBLI_MATCHERS_POST = {
 		    "/api-perfil/**",
 			"/api-prestador/prestador-upload-arquivo",
 		    "/api-prestador/prestador-upload-arquivo-format/",
-		    "/api-prestador/desativar-prestador"
+		    "/api-prestador/desativar-prestador",
+		    "/medico/desativa-ativa-medico",
+		    "/api-prestador/prestador-upload-arquivo-img",
+		    "/api-beneficiario/**",
+		    "/api-login/enviarMail-html",
+		    "/api-especialidade/**"
 	};
 	
 	//Sobreecrevendo metodo

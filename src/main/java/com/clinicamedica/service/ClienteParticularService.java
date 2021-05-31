@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.clinicamedica.controller.MedicoController;
-import com.clinicamedica.dto.BeneficiarioDTO;
 import com.clinicamedica.dto.DadosParaEmailDTO;
+import com.clinicamedica.dto.clienteparticularDTO;
 import com.clinicamedica.email.EmailService;
 import com.clinicamedica.exception.ServiceBaseException;
-import com.clinicamedica.repository.BeneficiarioRepository;
+import com.clinicamedica.repository.ClienteParticularRepository;
 
 @Service
-public class BeneficiarioService {
+public class ClienteParticularService {
 	
 	@Autowired
-	private BeneficiarioRepository proxyBenef;
+	ClienteParticularRepository proxyClientePart;
 	
 	@Autowired
 	private EmailService emailProxy;
@@ -30,29 +30,29 @@ public class BeneficiarioService {
 	
 	@Autowired
 	EmailService proxyEmail;
-	//15,10,8,18,21,19,
-	public BeneficiarioDTO findByIdService(int id) {
-		Optional<BeneficiarioDTO> obj = Optional.ofNullable(proxyBenef.findById(id));
+	
+	public clienteparticularDTO findByIdService(int id) {
+		Optional<clienteparticularDTO> obj = Optional.ofNullable(proxyClientePart.findById(id));
 		return obj.orElseThrow(() -> new ServiceBaseException(
-				"Erro com o ID: "+id+", tipo : "+BeneficiarioDTO.class.getName()));  
+				"Erro com o ID: "+id+", tipo : "+clienteparticularDTO.class.getName()));  
 	}
 	
-	public List<BeneficiarioDTO> findAllService(){
-		Optional<List<BeneficiarioDTO>> obj = Optional.ofNullable(proxyBenef.findAll());
+	public List<clienteparticularDTO> findAllService(){
+		Optional<List<clienteparticularDTO>> obj = Optional.ofNullable(proxyClientePart.findAll());
 		return obj.orElseThrow(() -> new ServiceBaseException("Erro  na importação dos beneficiario"));
 	}
 	
-	public List<BeneficiarioDTO> findlikeService(String nome){
-		Optional<List<BeneficiarioDTO>> obj =Optional.ofNullable(proxyBenef.buscaPorLike(nome));
+	public List<clienteparticularDTO> findlikeService(String nome){
+		Optional<List<clienteparticularDTO>> obj =Optional.ofNullable(proxyClientePart.buscaPorLike(nome));
 		return obj.orElseThrow(() -> new ServiceBaseException("Erro no FindlikeService parametro :" +nome));
 	}
 	
-	public BeneficiarioDTO InserirBeneficiario(BeneficiarioDTO dto) {
+	public clienteparticularDTO InserirClientePart(clienteparticularDTO dto) {
 		try {
 			DadosParaEmailDTO email = new DadosParaEmailDTO();
 			log.info("Inserir Beneficiario");
 			dto.setData_cadas(new Date(System.currentTimeMillis()));
-			BeneficiarioDTO benef = proxyBenef.save(dto);
+			clienteparticularDTO benef = proxyClientePart.save(dto);
 			if(benef != null) {
 				email.setAssunto("Cadastro Beneficiario");
 				email.setCarteirinha("000000000000000");
@@ -65,34 +65,20 @@ public class BeneficiarioService {
 			return benef;
 		}catch (Exception e) {
 			log.info("Erro : "+e.getMessage());
-			throw new ServiceBaseException("Ocorreu um erro no InserirBeneficiario");
+			throw new ServiceBaseException("Ocorreu um erro no InserirClientePart");
 		}
 		
 	}
 	
-	public void DesativaAtivaBeneficiario(int id, Integer status) {
-		try {
-			log.info("update DesativaAtivaBeneficiario");
-			if (status.equals(1))
-				proxyBenef.desativarAtivaBeneficiario(id, "A");
-			else if (status.equals(2))
-				proxyBenef.desativarAtivaBeneficiario(id, "D");
-		} catch (Exception e) {
-			log.info("Erro : " + e.getMessage());
-			throw new ServiceBaseException("Ocorreu um erro no DesativaAtivaBeneficiario");
-		}
-	}
-	
-	public BeneficiarioDTO UpdateBeneficiario(BeneficiarioDTO dto) {
+	public clienteparticularDTO UpdateClientePart(clienteparticularDTO dto) {
 		try {
 			log.info("update UpdateBeneficiario");
-			BeneficiarioDTO benef = proxyBenef.save(dto);
-			return benef;
+			clienteparticularDTO clientPar = proxyClientePart.save(dto);
+			return clientPar;
 		} catch (Exception e) {
 			log.info("Erro : "+e.getMessage());
-			throw new ServiceBaseException("Ocorreu um erro no UpdateBeneficiario");
+			throw new ServiceBaseException("Ocorreu um erro no UpdateClientePart");
 		}
 	}
-		
-	
+
 }

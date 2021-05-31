@@ -1,29 +1,21 @@
 package com.clinicamedica.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 
-import javassist.SerialVersionUID;
 
 @Entity
 @Table(name="login")
 public class LoginDTO implements Serializable {
 	
-	public static final long SerialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY )
@@ -117,9 +109,7 @@ public class LoginDTO implements Serializable {
 	public void setUltimologin(String ultimologin) {
 		this.ultimologin = ultimologin;
 	}
-	public static long getSerialversionuid() {
-		return SerialVersionUID;
-	}
+
 	@Override
 	public String toString() {
 		return "LoginDTO [idlogin=" + idlogin + ", login=" + login + ", senha=" + senha + ", email=" + email
