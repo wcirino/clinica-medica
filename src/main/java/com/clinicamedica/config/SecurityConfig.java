@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    "/api-perfil/**",
 		    "/medico/buscar-medico-like",
 		    "/api-beneficiario/**",
-		    "/api-especialidade/**"
+		    "/api-especialidade/**",
+		    "/api-teste/**"
 	};
 	
 	private static final String[] PUBLI_MATCHERS_POST = {

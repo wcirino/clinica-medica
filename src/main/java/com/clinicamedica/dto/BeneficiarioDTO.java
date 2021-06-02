@@ -266,6 +266,5 @@ public class BeneficiarioDTO implements Serializable{
 				+ telefone + ", celular=" + celular + "]";
 	}
 	
-	
-	
+		
 }
