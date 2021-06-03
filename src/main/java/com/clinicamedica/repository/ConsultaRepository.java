@@ -26,4 +26,5 @@ public interface ConsultaRepository extends JpaRepository<ConsultaDTO, Integer> 
 	
 	@Query(value = "SELECT b from ConsultaDTO b WHERE b.data_consulta BETWEEN :inicial and :fim order by b.data_consulta")
     public List<ConsultaDTO> buscaData(Date inicial, Date fim);
+	
 }

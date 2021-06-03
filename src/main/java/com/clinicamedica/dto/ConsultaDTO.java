@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "consulta")
 public class ConsultaDTO implements Serializable {
@@ -31,6 +33,7 @@ public class ConsultaDTO implements Serializable {
 	private Integer idclienteparticular;
 	
 	@Column(name="data_consulta")
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date data_consulta;
 	
 	@Column(name = "statusConsulta")

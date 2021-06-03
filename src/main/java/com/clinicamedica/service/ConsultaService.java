@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.clinicamedica.dto.ConsultaDTO;
+import com.clinicamedica.dto.ConsultaExameDTO;
 import com.clinicamedica.exception.ServiceBaseException;
+import com.clinicamedica.repository.ConsultaExameRepository;
 import com.clinicamedica.repository.ConsultaRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class ConsultaService {
 
 	@Autowired
 	private ConsultaRepository proxyConsulta;
+	
+	@Autowired
+	private ConsultaExameRepository proxyexame;
 	
 	@Autowired
 	private static final Logger log = LoggerFactory.getLogger(ConsultaService.class);
@@ -33,6 +38,30 @@ public class ConsultaService {
 		return obj.orElseThrow(() -> new ServiceBaseException("Erro  na importação dos beneficiario"));
 	}
 	
+	public List<ConsultaExameDTO> buscaConsultaporBeneficiario(int id){
+		Optional<List<ConsultaExameDTO>> obj = Optional.ofNullable(proxyexame.buscaConsulta());
+		return obj.orElseThrow(() -> new ServiceBaseException("Erro  na importação dos beneficiario"));
+	}
+	
+	public List<ConsultaExameDTO> buscaConsultaBeneficiarioID(int id){
+		Optional<List<ConsultaExameDTO>> obj = Optional.ofNullable(proxyexame.buscaConsultaID(id));
+		return obj.orElseThrow(() -> new ServiceBaseException("Erro  na importação dos beneficiario"));
+	}
+	
+	public List<ConsultaExameDTO> buscaConsultaBeneficiarioIDParticular(int id){
+		Optional<List<ConsultaExameDTO>> obj = Optional.ofNullable(proxyexame.buscaConsultaIDParticular(id));
+		return obj.orElseThrow(() -> new ServiceBaseException("Erro  na importação dos beneficiario"));
+	}
+	
+	public List<ConsultaExameDTO> buscaConsultaBeneficiarioIdDate(int id,Date dtinicio, Date dtfim){
+		Optional<List<ConsultaExameDTO>> obj = Optional.ofNullable(proxyexame.buscaConsultaIdDate(dtinicio,dtfim));
+		return obj.orElseThrow(() -> new ServiceBaseException("Erro  na importação dos buscaConsultaBeneficiarioIdDate"));
+	}
+	
+	public List<ConsultaExameDTO> buscaConsultaDate(int id,Date dtinicio, Date dtfim){
+		Optional<List<ConsultaExameDTO>> obj = Optional.ofNullable(proxyexame.buscaConsultaData(id,dtinicio,dtfim));
+		return obj.orElseThrow(() -> new ServiceBaseException("Erro  na importação dos buscaConsultaBeneficiarioIdDate"));
+	}
 	
 	public ConsultaDTO AlterarConsultaService(ConsultaDTO obj) {
 		if(!proxyConsulta.existsById(obj.getIdconsulta())) {
