@@ -35,7 +35,6 @@ import com.clinicamedica.dto.PrestadorDTO;
 import com.clinicamedica.entity.FileUploadFileResponse;
 import com.clinicamedica.file.FileStorageService;
 import com.clinicamedica.file.ImageService;
-import com.clinicamedica.file.S3Service;
 import com.clinicamedica.service.PrestadorService;
 import com.google.common.net.HttpHeaders;
 

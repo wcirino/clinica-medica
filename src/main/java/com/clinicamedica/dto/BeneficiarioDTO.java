@@ -12,8 +12,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import javassist.SerialVersionUID;
-
 @Entity
 @Table(name="beneficiario")
 public class BeneficiarioDTO implements Serializable{
