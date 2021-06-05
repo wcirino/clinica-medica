@@ -126,13 +126,14 @@ public class MedicoController {
 		return proxymedicoService.buscaMedicoModelMapperOneService(id);
 	}
 	
-	
+	@ApiOperation(value = "Buscar medico via like")
 	@GetMapping(value = "/buscar-medico-like/{medico}")
 	public ResponseEntity<?> buscaMedicoLike(@PathVariable String medico){
 		log.info("Buscando medico com like");
 		return new ResponseEntity<>(proxymedicoService.buscarPorNomeService(medico), HttpStatus.CREATED);
 	}
 	
+	@ApiOperation(value = "Desativa e  ativa medico")
 	@PostMapping(value = "/desativa-ativa-medico")
 	public ResponseEntity<?> desativaAtiva(@RequestBody DesativaAtivaMedicoDTO obj){
 		log.info("Desativando e ativando medico");

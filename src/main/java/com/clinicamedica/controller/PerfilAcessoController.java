@@ -12,6 +12,9 @@ import com.clinicamedica.dto.PerfilAcessoDTO;
 import com.clinicamedica.entity.perfil_acesso;
 import com.clinicamedica.service.PerfilAcessoService;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @RestController
 @RequestMapping(value = "/api-perfil-acesso")
 public class PerfilAcessoController {

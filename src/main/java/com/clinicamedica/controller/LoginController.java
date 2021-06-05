@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.clinicamedica.dto.LoginDTO;
 import com.clinicamedica.service.LoginService;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @RestController
 @RequestMapping(value = "/api-login")
 public class LoginController {

@@ -38,6 +38,9 @@ import com.clinicamedica.file.ImageService;
 import com.clinicamedica.service.PrestadorService;
 import com.google.common.net.HttpHeaders;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @RestController
 @RequestMapping(value = "/api-prestador")
 public class PrestadorController {
