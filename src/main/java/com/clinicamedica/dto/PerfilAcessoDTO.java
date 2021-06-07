@@ -25,6 +25,8 @@ public class PerfilAcessoDTO {
 	@JoinColumn(name = "idprestador")
 	private PrestadorDTO prestador;
 	
+	
+	
 	public int getIdper_prest() {
 		return idper_prest;
 	}

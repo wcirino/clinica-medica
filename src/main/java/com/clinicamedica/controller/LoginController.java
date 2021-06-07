@@ -33,11 +33,11 @@ public class LoginController {
 	@Autowired
 	private static final Logger log = LoggerFactory.getLogger(MedicoController.class);
 		
-	@GetMapping(value = "/criptografia")
-	public String GerarSenha(){
+	@GetMapping(value = "/criptografia/{sh}")
+	public String GerarSenha(@PathVariable String sh){
 		String senha;
 	//	String senhaDecodificada;
-		senha = criptografia.encode("123456");
+		senha = criptografia.encode(sh);
 		return senha;
 	}
 	

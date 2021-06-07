@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.clinicamedica.dto.PerfilDTO;
+import com.clinicamedica.entity.perfilAcesso;
 import com.clinicamedica.entity.perfil_acesso;
 
 public class UusuarioSecurity implements UserDetails{
@@ -104,5 +105,8 @@ public class UusuarioSecurity implements UserDetails{
 	 * public boolean hasRole(Perfil perfil) { return getAuthorities().contains(new
 	 * SimpleGrantedAuthority(perfil.getDescricao())); }
 	 */
+	public boolean hasRole(String perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil));
+	}
 
 }

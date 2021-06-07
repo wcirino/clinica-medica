@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.clinicamedica.exception.AuthorizationException;
 import com.clinicamedica.exception.ExceptionBase;
 import com.clinicamedica.exception.ExceptionResponse;
 import com.clinicamedica.exception.FileException;
@@ -61,5 +62,11 @@ public class CustomizedResponseEntityExceptionHandler {
 		
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Erro S3", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Erro S3", e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
 }

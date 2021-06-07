@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.clinicamedica.repository.prestadoresRepository;
+import com.clinicamedica.security.UusuarioSecurity;
 import com.clinicamedica.controller.MedicoController;
 import com.clinicamedica.dto.LoginDTO;
 import com.clinicamedica.dto.PrestadorAcessoDTO;
@@ -22,6 +23,7 @@ import com.clinicamedica.dto.PrestadorDTO;
 import com.clinicamedica.dto.PrestadorLoginDTO;
 import com.clinicamedica.entity.PrestadorAcessoPerfil;
 import com.clinicamedica.entity.perfil_acesso;
+import com.clinicamedica.exception.AuthorizationException;
 import com.clinicamedica.exception.ServiceBaseException;
 import com.clinicamedica.file.ImageService;
 import com.clinicamedica.file.S3Service;
@@ -67,6 +69,12 @@ public class PrestadorService {
 	}
 
 	public PrestadorDTO buscarPorIDService(int id) {
+		
+		UusuarioSecurity user = UserService.authenticated();
+		if(user == null || !user.hasRole("ADMIN"))
+			throw new AuthorizationException("Acesso negado, sem permissão");
+		
+				
 		log.info("Class PrestadorService chamando buscarPorIDService");
 		PrestadorDTO dto = proxyPrestador.findById(id);
 		return dto;

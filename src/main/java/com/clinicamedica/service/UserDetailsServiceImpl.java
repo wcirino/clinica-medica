@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.clinicamedica.dto.LoginDTO;
+import com.clinicamedica.entity.perfilAcesso;
 import com.clinicamedica.entity.perfil_acesso;
+import com.clinicamedica.repository.PerfilAcessoRepository;
 import com.clinicamedica.security.UusuarioSecurity;
 
 @Service
@@ -22,19 +24,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private PrestadorService proxyPrestador;
 	
+	@Autowired
+	private PerfilAcessoService proxyPerfilAcesso;
+		
 	//Vai buscar pelo login
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		List<perfil_acesso> objList = new ArrayList<>();
+
+		List<perfilAcesso> objList = new ArrayList<>();
 		LoginDTO dto = proxyLogin.buscaLoginService(login);
+		List<perfil_acesso> perfils = proxyPerfilAcesso.buscaNivelAcessoList(dto.getIdlogin());
 		if(dto == null) 
 			throw new UsernameNotFoundException(login);
 		else {
 		  // objList  = proxyPrestador.buscaPrestadorLoginParaPerfilService(login);
 		}
 		  
-		return  new UusuarioSecurity(dto.getIdlogin(), dto.getEmail(),dto.getSenha(),dto.getLogin(),objList);
+		return  new UusuarioSecurity(dto.getIdlogin(), dto.getEmail(),dto.getSenha(),dto.getLogin(),perfils);
 	}
 
 }
